@@ -28,8 +28,9 @@ model = cargar_modelo()
 st.sidebar.header("Configuración")
 st.sidebar.write(f"Modelo cargado: `{MODEL_URI}`")
 
-st.write("Columnas que espera el modelo:")
-st.write(model.feature_names_in_)
+#Verificar que columnas espera 
+#st.write("Columnas que espera el modelo:")
+#st.write(model.feature_names_in_)
 
 # ================================
 # 🔹 ENTRADAS DEL USUARIO (ESTUDIANTES)

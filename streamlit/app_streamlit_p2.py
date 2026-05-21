@@ -28,6 +28,9 @@ model = cargar_modelo()
 st.sidebar.header("Configuración")
 st.sidebar.write(f"Modelo cargado: `{MODEL_URI}`")
 
+st.write("Columnas que espera el modelo:")
+st.write(model.feature_names_in_)
+
 # ================================
 # 🔹 ENTRADAS DEL USUARIO (ESTUDIANTES)
 # ================================
@@ -37,31 +40,28 @@ st.subheader("Ingreso de datos del estudiante")
 col1, col2 = st.columns(2)
 
 with col1:
-    promedio = st.number_input("Promedio", min_value=0.0, max_value=10.0, value=7.0)
-    modalidad = st.selectbox("Modalidad", ["Presencial", "Virtual", "Híbrida"])
     carrera = st.selectbox("Carrera", ["Sistemas", "Industrial", "Civil", "Administración"])
+    modalidad = st.selectbox("Modalidad", ["Presencial", "Virtual", "Híbrida"])
     beca = st.selectbox("¿Tiene beca?", ["Si", "No"])
     
 
 with col2:
-    asistencia = st.slider("Asistencia (%)", 0, 100, 80)
     edad = st.number_input("Edad", min_value=16, max_value=60, value=20)
-    horas_estudio = st.number_input("Horas de estudio por semana", min_value=0, max_value=60, value=10)
-    trabaja = st.selectbox("¿Trabaja?", ["Si", "No"])
+    promedio = st.number_input("Promedio", min_value=0.0, max_value=10.0, value=7.0)
+    asistencias = st.slider("Asistencia (%)", 0, 100, 80)
 
 # ================================
 # 🔹 DATAFRAME PARA EL MODELO
 # ================================
 
+
 datos = pd.DataFrame([{
-    "Promedio": promedio,
-    "Carrera": carrera,
-    "Modalidad": modalidad,
+    "carrera": carrera,
+    "modalidad": modalidad,
     "beca": beca,
-    "asistencia": asistencia,
     "edad": edad,
-    "horas_estudio": horas_estudio,
-    "trabaja": trabaja
+    "promedio": promedio,
+    "asistencias": asistencias,
 }])
 
 st.subheader("Datos enviados al modelo")
